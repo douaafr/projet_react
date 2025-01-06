@@ -26,4 +26,5 @@ function DetailPage({ character, onNavigateBack }) {
   );
 }
 
+
 export default DetailPage;
