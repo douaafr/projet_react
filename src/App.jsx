@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useCharacters } from './hooks/useCharacters.jsx';
 import HomePage from './pages/HomePage';
 import ListPage from './pages/ListPage';
 import DetailPage from './pages/DetailPage';
@@ -6,17 +7,8 @@ import DetailPage from './pages/DetailPage';
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [selectedCharacter, setSelectedCharacter] = useState(null);
-  const [characters, setCharacters] = useState([]);
 
-  useEffect(() => {
-    fetch('https://hp-api.onrender.com/api/characters')
-      .then((response) => response.json())
-      .then((data) => {
-        const charactersWithImages = data.filter((character) => character.image);
-        setCharacters(charactersWithImages);
-      })
-      .catch((error) => console.error('Erreur lors du chargement des personnages :', error));
-  }, []);
+  const { data: characters = [], isLoading, error } = useCharacters();
 
   const handleSearch = (searchTerm) => {
     const foundCharacter = characters.find((character) =>
@@ -47,7 +39,7 @@ function App() {
             setSelectedCharacter(character);
             setCurrentPage('detail');
           }}
-          onNavigateHome={() => setCurrentPage('home')} // Ajout de la fonction pour revenir à l'accueil
+          onNavigateHome={() => setCurrentPage('home')}
         />
       );
     } else if (currentPage === 'detail') {
@@ -59,6 +51,9 @@ function App() {
       );
     }
   };
+
+  if (isLoading) return <p style={{ textAlign: 'center' }}>Chargement des personnages...</p>;
+  if (error) return <p style={{ textAlign: 'center' }}>Erreur lors du chargement des personnages</p>;
 
   return (
     <div

@@ -1,89 +1,13 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React from 'react';
+import { useCharacterFilters } from '../hooks/useCharacterFilters.jsx';
 import ListItem from '../components/ListItem';
 
-function ListPage({ onCharacterSelect, characters: propCharacters = [], onNavigateHome }) {
-  const [characters, setCharacters] = useState([]);
-  const [search, setSearch] = useState('');
-  const [sortCriteria, setSortCriteria] = useState(() => {
-    return localStorage.getItem('lastSortCriteria') || 'firstName';
-  });
-
-  useEffect(() => {
-    if (propCharacters.length > 0) {
-      setCharacters(propCharacters);
-    } else {
-      fetch('https://hp-api.onrender.com/api/characters')
-        .then((response) => response.json())
-        .then((data) => {
-          const charactersWithImages = data.filter((character) => character.image);
-          setCharacters(charactersWithImages);
-        })
-        .catch((error) => console.error('Erreur lors de la récupération des personnages :', error));
-    }
-  }, [propCharacters]);
-
-  const splitName = (fullName) => {
-    const parts = fullName.split(' ');
-    return {
-      firstName: parts[0] || '',
-      lastName: parts.slice(1).join(' ') || '',
-    };
-  };
-
-  const sortCharacters = (characters, criteria) => {
-    return [...characters].sort((a, b) => {
-      const aSplit = splitName(a.name);
-      const bSplit = splitName(b.name);
-
-      if (criteria === 'firstName') {
-        return aSplit.firstName.localeCompare(bSplit.firstName);
-      }
-      if (criteria === 'lastName') {
-        return aSplit.lastName.localeCompare(bSplit.lastName);
-      }
-      if (criteria === 'actor') {
-        return (a.actor || '').localeCompare(b.actor || '');
-      }
-      if (criteria === 'house') {
-        return (a.house || '').localeCompare(b.house || '');
-      }
-      if (criteria === 'patronus') {
-        return (a.patronus || '').localeCompare(b.patronus || '');
-      }
-      if (criteria === 'ancestry') {
-        return (a.ancestry || '').localeCompare(b.ancestry || '');
-      }
-      if (criteria === 'wizard') {
-        return a.wizard === b.wizard ? 0 : a.wizard ? -1 : 1;
-      }
-      if (criteria === 'dateOfBirth') {
-        const [aDay, aMonth, aYear] = (a.dateOfBirth || '00-00-0000').split('-').map(Number);
-        const [bDay, bMonth, bYear] = (b.dateOfBirth || '00-00-0000').split('-').map(Number);
-
-        return aYear - bYear || aMonth - bMonth || aDay - bDay;
-      }
-
-      return 0;
-    });
-  };
-
-  const sortedCharacters = useMemo(() => {
-    return sortCharacters(
-      characters.filter((character) =>
-        character.name.toLowerCase().includes(search.toLowerCase())
-      ),
-      sortCriteria
-    );
-  }, [characters, search, sortCriteria]);
-
-  const handleSortChange = (newCriteria) => {
-    setSortCriteria(newCriteria);
-    localStorage.setItem('lastSortCriteria', newCriteria);
-  };
+function ListPage({ characters, onCharacterSelect, onNavigateHome }) {
+  const { search, setSearch, sortCriteria, setSortCriteria, filteredCharacters } =
+    useCharacterFilters(characters);
 
   return (
     <div style={{ padding: '20px' }}>
-      {/* Bouton pour revenir à l'accueil */}
       <button
         onClick={onNavigateHome}
         style={{
@@ -94,7 +18,6 @@ function ListPage({ onCharacterSelect, characters: propCharacters = [], onNaviga
           border: 'none',
           cursor: 'pointer',
           marginBottom: '20px',
-          fontSize: '1rem',
         }}
       >
         Retour à l'accueil
@@ -117,7 +40,7 @@ function ListPage({ onCharacterSelect, characters: propCharacters = [], onNaviga
         />
         <select
           value={sortCriteria}
-          onChange={(e) => handleSortChange(e.target.value)}
+          onChange={(e) => setSortCriteria(e.target.value)}
           style={{
             padding: '10px',
             borderRadius: '5px',
@@ -125,13 +48,7 @@ function ListPage({ onCharacterSelect, characters: propCharacters = [], onNaviga
           }}
         >
           <option value="firstName">Prénom</option>
-          <option value="lastName">Nom</option>
-          <option value="actor">Acteur</option>
           <option value="house">Maison</option>
-          <option value="patronus">Patronus</option>
-          <option value="wizard">Sorcier</option>
-          <option value="ancestry">Ascendance</option>
-          <option value="dateOfBirth">Date de Naissance</option>
         </select>
       </div>
       <div
@@ -144,8 +61,12 @@ function ListPage({ onCharacterSelect, characters: propCharacters = [], onNaviga
           margin: '0 auto',
         }}
       >
-        {sortedCharacters.map((character) => (
-          <ListItem key={character.name} character={character} onClick={() => onCharacterSelect(character)} />
+        {filteredCharacters.map((character) => (
+          <ListItem
+            key={character.name}
+            character={character}
+            onClick={() => onCharacterSelect(character)}
+          />
         ))}
       </div>
     </div>
