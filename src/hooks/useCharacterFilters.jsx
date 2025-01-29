@@ -4,6 +4,7 @@ export const useCharacterFilters = (characters) => {
   const [search, setSearch] = useState('');
   const [sortCriteria, setSortCriteria] = useState('firstName');
 
+
   const filteredCharacters = useMemo(() => {
     if (!characters) return [];
     const filtered = characters.filter((character) =>
