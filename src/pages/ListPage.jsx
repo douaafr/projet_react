@@ -48,7 +48,13 @@ function ListPage({ characters, onCharacterSelect, onNavigateHome }) {
           }}
         >
           <option value="firstName">Prénom</option>
+          <option value="lastName">Nom</option>
+          <option value="actor">Acteur</option>
           <option value="house">Maison</option>
+          <option value="patronus">Patronus</option>
+          <option value="wizard">Sorcier</option>
+          <option value="ancestry">Ascendance</option>
+          <option value="dateOfBirth">Date de Naissance</option>
         </select>
       </div>
       <div
