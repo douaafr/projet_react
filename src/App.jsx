@@ -9,15 +9,30 @@ import { useCharacters } from "./hooks/useCharacters";
 function App() {
   const [currentPage, setCurrentPage] = useState("home");
   const [selectedCharacter, setSelectedCharacter] = useState(null);
-  const [favorites, setFavorites] = useState([]); 
+  const [searchTerm, setSearchTerm] = useState(""); // Ajouter un état pour la recherche
+  const [favorites, setFavorites] = useState([]);
 
   const { data: characters = [], isLoading, error } = useCharacters();
 
-  // Ajouter ou retirer un personnage des favoris
+  // Fonction pour gérer la recherche
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+    const foundCharacter = characters.find(
+      (character) => character.name.toLowerCase() === term.toLowerCase()
+    );
+    if (foundCharacter) {
+      setSelectedCharacter(foundCharacter);
+      setCurrentPage("detail");
+    } else {
+      alert("Personnage non trouvé. Veuillez vérifier l'orthographe.");
+    }
+  };
+
+  // Fonction pour ajouter ou retirer un favori
   const toggleFavorite = (characterName) => {
     setFavorites((prevFavorites) =>
       prevFavorites.includes(characterName)
-        ? prevFavorites.filter((name) => name !== characterName) 
+        ? prevFavorites.filter((name) => name !== characterName)
         : [...prevFavorites, characterName]
     );
   };
@@ -30,6 +45,7 @@ function App() {
           onNavigate={() => setCurrentPage("list")}
           onNavigateFavorites={() => setCurrentPage("favorites")}
           onNavigateCompare={() => setCurrentPage("compare")}
+          onSearch={handleSearch} // Passer la fonction de recherche
         />
       );
     } else if (currentPage === "list") {
@@ -45,13 +61,6 @@ function App() {
           toggleFavorite={toggleFavorite}
         />
       );
-    } else if (currentPage === "compare") {
-      return (
-        <ComparePage
-          characters={characters}
-          onNavigateHome={() => setCurrentPage("home")}
-        />
-      );
     } else if (currentPage === "favorites") {
       return (
         <FavoritesPage
@@ -65,6 +74,13 @@ function App() {
           toggleFavorite={toggleFavorite}
         />
       );
+    } else if (currentPage === "compare") {
+      return (
+        <ComparePage
+          characters={characters}
+          onNavigateHome={() => setCurrentPage("home")}
+        />
+      );
     } else if (currentPage === "detail") {
       return (
         <DetailPage
@@ -75,7 +91,7 @@ function App() {
     }
   };
 
-  // Gestion du chargement et des erreurs
+  // Gestion des erreurs et du chargement
   if (isLoading) return <p>Chargement des personnages...</p>;
   if (error)
     return <p>Erreur lors du chargement des personnages : {error.message}</p>;
