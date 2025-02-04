@@ -52,7 +52,7 @@ function App() {
     }
   };
 
-  if (isLoading) return <p style={{ textAlign: 'center' }}>Chargement des personnages...</p>;
+  if (isLoading) return <p style={{ textAlign: 'center' }}>Chargement des personnages...</p>; 
   if (error) return <p style={{ textAlign: 'center' }}>Erreur lors du chargement des personnages</p>;
 
   return (

@@ -1,22 +1,22 @@
 import { useState, useMemo } from 'react';
 
-// Fonction pour séparer le prénom et le nom
+//pour séparer le prénom et le nom
 const splitName = (fullName) => {
   const parts = fullName.split(' ');
   return {
-    firstName: parts[0] || '', // Prénom
-    lastName: parts.slice(1).join(' ') || '', // Nom
+    firstName: parts[0] || '',
+    lastName: parts.slice(1).join(' ') || '', 
   };
 };
 
 export const useCharacterFilters = (characters) => {
   const [search, setSearch] = useState('');
-  const [sortCriteria, setSortCriteria] = useState('actor'); // Critère par défaut : acteur
+  const [sortCriteria, setSortCriteria] = useState('actor'); // Critère de tri par défaut
 
   const filteredCharacters = useMemo(() => {
     if (!characters) return [];
 
-    // Filtrage par recherche
+    // Filtrage par recherche pour afficher les personnages au même temps que la saisie
     const filtered = characters.filter((character) =>
       character.name.toLowerCase().includes(search.toLowerCase())
     );
@@ -27,35 +27,35 @@ export const useCharacterFilters = (characters) => {
       const bSplit = splitName(b.name);
 
       if (sortCriteria === 'firstName') {
-        return aSplit.firstName.localeCompare(bSplit.firstName); // Trie par prénom
+        return aSplit.firstName.localeCompare(bSplit.firstName); 
       }
       if (sortCriteria === 'lastName') {
-        return aSplit.lastName.localeCompare(bSplit.lastName); // Trie par nom
+        return aSplit.lastName.localeCompare(bSplit.lastName); 
       }
       if (sortCriteria === 'actor') {
-        return (a.actor || '').localeCompare(b.actor || ''); // Trie par acteur
+        return (a.actor || '').localeCompare(b.actor || ''); 
       }
       if (sortCriteria === 'house') {
-        return (a.house || '').localeCompare(b.house || ''); // Trie par maison
+        return (a.house || '').localeCompare(b.house || ''); 
       }
       if (sortCriteria === 'patronus') {
-        return (a.patronus || '').localeCompare(b.patronus || ''); // Trie par patronus
+        return (a.patronus || '').localeCompare(b.patronus || ''); 
       }
       if (sortCriteria === 'ancestry') {
-        return (a.ancestry || '').localeCompare(b.ancestry || ''); // Trie par ascendance
+        return (a.ancestry || '').localeCompare(b.ancestry || ''); 
       }
       if (sortCriteria === 'wizard') {
-        return a.wizard === b.wizard ? 0 : a.wizard ? -1 : 1; // Trie par sorcier (true/false)
+        return a.wizard === b.wizard ? 0 : a.wizard ? -1 : 1; 
       }
       if (sortCriteria === 'dateOfBirth') {
-        // Trie par date de naissance (jour, mois, année)
+        
         const [aDay, aMonth, aYear] = (a.dateOfBirth || '00-00-0000').split('-').map(Number);
         const [bDay, bMonth, bYear] = (b.dateOfBirth || '00-00-0000').split('-').map(Number);
 
         return aYear - bYear || aMonth - bMonth || aDay - bDay;
       }
 
-      return 0; // Pas de tri si aucun critère correspondant
+      return 0; 
     });
   }, [characters, search, sortCriteria]);
 
