@@ -1,6 +1,6 @@
 import React from "react";
 import MagicStars from "../components/MagicStars"; // Importation des étoiles magiques
-import parchment from "../assets/parchment.jpg"; // Importation directe de l'image
+import parchment from "../assets/chateau.png"; // Importation directe de l'image
 
 function HomePage({ onNavigate, onSearch, onNavigateCompare, onNavigateFavorites }) {
   const [searchTerm, setSearchTerm] = React.useState("");
