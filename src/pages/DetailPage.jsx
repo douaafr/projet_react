@@ -1,9 +1,20 @@
 import React from 'react';
+import parchment from "../assets/parchment.jpg"; // Importation du fond parcheminé
 
 function DetailPage({ character, onNavigateBack }) {
   if (!character) {
     return (
-      <div style={{ textAlign: 'center', marginTop: '50px', color: '#fff' }}>
+      <div
+        style={{
+          textAlign: 'center',
+          marginTop: '50px',
+          color: '#4a2200', // Couleur plus foncée pour la lisibilité
+          minHeight: "100vh",
+          background: `url(${parchment}) center/cover no-repeat`,
+          padding: "40px 20px", // Ajout d'espace autour du contenu
+          boxSizing: "border-box", // Empêche les débordements
+        }}
+      >
         <h1>Personnage non trouvé</h1>
         <button
           onClick={onNavigateBack}
@@ -24,30 +35,44 @@ function DetailPage({ character, onNavigateBack }) {
   }
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px', color: '#fff' }}>
-      <h1>{character.name}</h1>
+    <div
+      style={{
+        textAlign: 'center',
+        minHeight: "100vh",
+        background: `url(${parchment}) center/cover no-repeat`,
+        padding: "40px 20px", // Ajout d'espace pour éviter l'effet collé
+        boxSizing: "border-box",
+      }}
+    >
+      <h1 style={{ color: "#4a2200", fontSize: "2.5rem", marginBottom: "20px" }}>
+        {character.name}
+      </h1>
+
       <img
         src={character.image}
         alt={character.name}
         style={{
-          width: '200px',
+          width: '250px',
           height: 'auto',
           borderRadius: '10px',
+          boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
           marginBottom: '20px',
         }}
       />
-      <p>
+
+      <p style={{ fontSize: "1.2rem", fontWeight: "bold", color: "#4a2200" }}>
         <strong>Maison :</strong> {character.house || 'Non connue'}
       </p>
-      <p>
+      <p style={{ fontSize: "1.2rem", fontWeight: "bold", color: "#4a2200" }}>
         <strong>Acteur :</strong> {character.actor || 'Non connu'}
       </p>
-      <p>
+      <p style={{ fontSize: "1.2rem", fontWeight: "bold", color: "#4a2200" }}>
         <strong>Patronus :</strong> {character.patronus || 'Non connu'}
       </p>
-      <p>
+      <p style={{ fontSize: "1.2rem", fontWeight: "bold", color: "#4a2200" }}>
         <strong>Ascendance :</strong> {character.ancestry || 'Non connue'}
       </p>
+
       <button
         onClick={onNavigateBack}
         style={{
@@ -58,6 +83,7 @@ function DetailPage({ character, onNavigateBack }) {
           border: 'none',
           cursor: 'pointer',
           marginTop: '20px',
+          fontSize: "1rem",
         }}
       >
         Retour à la liste

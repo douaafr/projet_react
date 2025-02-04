@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import parchment from "../assets/parchment.jpg"; // Importation du fond parcheminé
 
 function ComparePage({ characters, onNavigateHome }) {
   const [selectedCharacters, setSelectedCharacters] = useState([]);
@@ -14,7 +15,13 @@ function ComparePage({ characters, onNavigateHome }) {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div
+      style={{
+        padding: "20px",
+        minHeight: "100vh",
+        background: `url(${parchment}) center/cover no-repeat`,
+      }}
+    >
       <button
         onClick={onNavigateHome}
         style={{

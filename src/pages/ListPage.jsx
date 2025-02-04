@@ -1,6 +1,7 @@
 import React from "react";
 import { useCharacterFilters } from "../hooks/useCharacterFilters.jsx";
 import ListItem from "../components/ListItem";
+import parchment from "../assets/parchment.jpg"; // Importation du fond parcheminé
 
 function ListPage({ 
   characters,
@@ -13,7 +14,13 @@ function ListPage({
     useCharacterFilters(characters);
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div
+      style={{
+        padding: "20px",
+        minHeight: "100vh",
+        background: `url(${parchment}) center/cover no-repeat`,
+      }}
+    >
       {/* Bouton pour revenir à l'accueil */}
       <button
         onClick={onNavigateHome}
