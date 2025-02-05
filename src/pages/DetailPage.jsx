@@ -1,6 +1,5 @@
 import React from 'react';
-import parchment from "../assets/parchment.jpg"; // Importation du fond parcheminé
-
+import parchment from "../assets/parchment.jpg"; 
 function DetailPage({ character, onNavigateBack }) {
   if (!character) {
     return (
@@ -8,11 +7,11 @@ function DetailPage({ character, onNavigateBack }) {
         style={{
           textAlign: 'center',
           marginTop: '50px',
-          color: '#4a2200', // Couleur plus foncée pour la lisibilité
+          color: '#4a2200',
           minHeight: "100vh",
           background: `url(${parchment}) center/cover no-repeat`,
-          padding: "40px 20px", // Ajout d'espace autour du contenu
-          boxSizing: "border-box", // Empêche les débordements
+          padding: "40px 20px",
+          boxSizing: "border-box",
         }}
       >
         <h1>Personnage non trouvé</h1>
@@ -40,7 +39,7 @@ function DetailPage({ character, onNavigateBack }) {
         textAlign: 'center',
         minHeight: "100vh",
         background: `url(${parchment}) center/cover no-repeat`,
-        padding: "40px 20px", // Ajout d'espace pour éviter l'effet collé
+        padding: "40px 20px",
         boxSizing: "border-box",
       }}
     >

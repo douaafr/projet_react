@@ -1,6 +1,6 @@
 import React from "react";
 import ListItem from "../components/ListItem";
-import parchment from "../assets/parchment.jpg"; // Importation du fond parcheminé
+import parchment from "../assets/parchment.jpg";
 
 function FavoritesPage({ favorites, characters, onCharacterSelect, onNavigateHome, toggleFavorite }) {
   const favoriteCharacters = characters.filter((character) =>
@@ -15,7 +15,7 @@ function FavoritesPage({ favorites, characters, onCharacterSelect, onNavigateHom
         background: `url(${parchment}) center/cover no-repeat`,
       }}
     >
-      {/* Bouton pour revenir à l'accueil */}
+      {}
       <button
         onClick={onNavigateHome}
         style={{

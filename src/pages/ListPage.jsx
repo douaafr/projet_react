@@ -1,7 +1,7 @@
 import React from "react";
 import { useCharacterFilters } from "../hooks/useCharacterFilters.jsx";
 import ListItem from "../components/ListItem";
-import parchment from "../assets/parchment.jpg"; // Importation du fond parcheminé
+import parchment from "../assets/parchment.jpg";
 
 function ListPage({ 
   characters,
@@ -21,7 +21,7 @@ function ListPage({
         background: `url(${parchment}) center/cover no-repeat`,
       }}
     >
-      {/* Bouton pour revenir à l'accueil */}
+      {}
       <button
         onClick={onNavigateHome}
         style={{
@@ -39,7 +39,7 @@ function ListPage({
 
       <h1 style={{ textAlign: "center" }}>Liste des Personnages</h1>
 
-      {/* Barre de recherche et filtres */}
+      {}
       <div style={{ textAlign: "center", marginBottom: "20px" }}>
         <input
           type="text"
@@ -74,7 +74,7 @@ function ListPage({
         </select>
       </div>
 
-      {/* Liste des personnages */}
+      {/* CSS pour la liste des personnages */}
       <div
         style={{
           display: "flex",

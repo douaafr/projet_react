@@ -24,7 +24,7 @@ function ListItem({ character, onClick, toggleFavorite, isFavorite }) {
       <h3>{character.name}</h3>
       <p>{character.house || "Maison inconnue"}</p>
 
-      {/* Bouton étoile pour favoris */}
+      {}
       <div
         onClick={(e) => {
           e.stopPropagation(); // pour ne pas ouvrir les détails quand on clique sur l'étoile

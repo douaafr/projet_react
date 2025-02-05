@@ -11,7 +11,7 @@ const splitName = (fullName) => {
 
 export const useCharacterFilters = (characters) => {
   const [search, setSearch] = useState('');
-  const [sortCriteria, setSortCriteria] = useState('actor'); // Critère de tri par défaut
+  const [sortCriteria, setSortCriteria] = useState('actor');
 
   const filteredCharacters = useMemo(() => {
     if (!characters) return [];
@@ -21,7 +21,7 @@ export const useCharacterFilters = (characters) => {
       character.name.toLowerCase().includes(search.toLowerCase())
     );
 
-    // Tri des résultats en fonction du critère sélectionné
+  
     return filtered.sort((a, b) => {
       const aSplit = splitName(a.name);
       const bSplit = splitName(b.name);

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import parchment from "../assets/parchment.jpg"; // Importation du fond parcheminé
+import parchment from "../assets/parchment.jpg";
 
 function ComparePage({ characters, onNavigateHome }) {
   const [selectedCharacters, setSelectedCharacters] = useState([]);
@@ -53,7 +53,7 @@ function ComparePage({ characters, onNavigateHome }) {
           gap: "20px",
         }}
       >
-        {/* Résultat de la comparaison */}
+        {/* CSS pour le résultat de la comparaison */}
         <div style={{ flex: "1", marginRight: "20px" }}>
           {selectedCharacters.length === 2 && (
             <div>
@@ -93,7 +93,7 @@ function ComparePage({ characters, onNavigateHome }) {
           )}
         </div>
 
-        {/* Liste des personnages */}
+        {/* CSS pour la liste des personnages */}
         <div
           style={{
             flex: "2",

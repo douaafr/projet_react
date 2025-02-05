@@ -16,16 +16,16 @@ const MagicStars = () => {
       constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * -canvas.height;
-        this.size = Math.random() * 3 + 1; // Taille entre 1 et 4 px
-        this.speed = Math.random() * 2 + 0.5; // Vitesse aléatoire
-        this.opacity = Math.random() * 0.5 + 0.5; // Opacité aléatoire
-        this.flicker = Math.random() * 0.05; // Effet de scintillement
+        this.size = Math.random() * 3 + 1; 
+        this.speed = Math.random() * 2 + 0.5; 
+        this.opacity = Math.random() * 0.5 + 0.5; 
+        this.flicker = Math.random() * 0.05;
       }
 
       draw() {
         ctx.save();
         ctx.globalAlpha = this.opacity;
-        ctx.fillStyle = "gold"; // Couleur étoile
+        ctx.fillStyle = "gold"; 
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -34,7 +34,7 @@ const MagicStars = () => {
 
       update() {
         this.y += this.speed;
-        this.opacity += Math.random() * 0.05 - 0.025; // Scintillement
+        this.opacity += Math.random() * 0.05 - 0.025; 
         if (this.opacity < 0.3) this.opacity = 0.3;
         if (this.opacity > 1) this.opacity = 1;
 

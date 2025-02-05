@@ -1,6 +1,6 @@
 import React from "react";
-import MagicStars from "../components/MagicStars"; // Importation des étoiles magiques
-import parchment from "../assets/chateau.png"; // Importation directe de l'image
+import MagicStars from "../components/MagicStars"; 
+import parchment from "../assets/chateau.png"; 
 
 function HomePage({ onNavigate, onSearch, onNavigateCompare, onNavigateFavorites }) {
   const [searchTerm, setSearchTerm] = React.useState("");
@@ -28,10 +28,10 @@ function HomePage({ onNavigate, onSearch, onNavigateCompare, onNavigateFavorites
         overflow: "hidden",
       }}
     >
-      {/* Effet d'étoiles magiques en arrière-plan */}
+      {}
       <MagicStars />
 
-      {/* Contenu principal encapsulé pour qu'il reste visible */}
+      {}
       <div style={{ position: "relative", zIndex: 2, backgroundColor: "rgba(255, 255, 255, 0.6)", padding: "20px", borderRadius: "10px" }}>
         <h1
           style={{

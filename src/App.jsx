@@ -9,12 +9,12 @@ import { useCharacters } from "./hooks/useCharacters";
 function App() {
   const [currentPage, setCurrentPage] = useState("home");
   const [selectedCharacter, setSelectedCharacter] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(""); // Ajouter un état pour la recherche
+  const [searchTerm, setSearchTerm] = useState("");
   const [favorites, setFavorites] = useState([]);
 
   const { data: characters = [], isLoading, error } = useCharacters();
 
-  // Fonction pour gérer la recherche
+
   const handleSearch = (term) => {
     setSearchTerm(term);
     const foundCharacter = characters.find(
@@ -37,7 +37,6 @@ function App() {
     );
   };
 
-  // Rendu des différentes pages
   const renderPage = () => {
     if (currentPage === "home") {
       return (
@@ -45,7 +44,7 @@ function App() {
           onNavigate={() => setCurrentPage("list")}
           onNavigateFavorites={() => setCurrentPage("favorites")}
           onNavigateCompare={() => setCurrentPage("compare")}
-          onSearch={handleSearch} // Passer la fonction de recherche
+          onSearch={handleSearch} 
         />
       );
     } else if (currentPage === "list") {
